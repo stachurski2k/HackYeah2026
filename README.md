@@ -19,12 +19,14 @@ słownik Pythona.
 
 ```text
 app/
-├── api.py                 # utworzenie aplikacji i rejestracja routerów
-├── config.py              # wczytanie config.toml do słownika
-├── server.py              # uruchomienie Uvicorn z ustawieniami config.toml
+└── server.py              # uruchomienie aplikacji
+api/
+├── application.py         # FastAPI i rejestracja routerów
+├── config.py              # config.get("sekcja.klucz", wartość_domyślna)
 ├── endpoints/
 │   ├── chat.py            # endpoint chat
 │   └── database.py        # endpointy administrujące danymi
+├── schemas/               # osobne schematy dla każdej domeny
 └── db/
     ├── models.py          # modele SQLAlchemy
     ├── session.py         # silnik i sesje

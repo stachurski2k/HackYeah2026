@@ -5,10 +5,10 @@ import httpx
 from sqlalchemy import create_engine
 from sqlalchemy.orm import Session
 
-from app.api import api
-from app.config import config
-from app.db import Base, get_db
-from app.db.seed import seed_reference_data
+from api import api
+from api.config import config
+from api.db import Base, get_db
+from api.db.seed import seed_reference_data
 
 test_engine = create_engine(
     "sqlite:///./test_proxy.db",
@@ -32,7 +32,8 @@ def reset_database() -> None:
 
 
 def test_config_is_loaded() -> None:
-    assert config["api"]["title"] == "AI Proxy API"
+    assert config.get("app.title", "") == "AI Proxy API"
+    assert config.get("missing.value", "default") == "default"
 
 
 def test_token_user_and_chat_flow() -> None:

@@ -2,18 +2,18 @@ from fastapi import APIRouter, Depends, Header, HTTPException
 from sqlalchemy import select
 from sqlalchemy.orm import Session
 
-from app import schemas
-from app.db import get_db, models
+from api.db import get_db, models
+from api.schemas.chat import ChatRequest, ChatResponse
 
 router = APIRouter(prefix="/chat", tags=["chat"])
 
 
-@router.post("", response_model=schemas.ChatResponse)
+@router.post("", response_model=ChatResponse)
 async def chat(
-    _: schemas.ChatRequest,
+    _: ChatRequest,
     authorization: str | None = Header(default=None),
     db: Session = Depends(get_db),
-) -> schemas.ChatResponse:
+) -> ChatResponse:
     if not authorization or not authorization.startswith("Bearer "):
         raise HTTPException(status_code=401, detail="Missing Bearer token")
 
@@ -23,7 +23,7 @@ async def chat(
         raise HTTPException(status_code=401, detail="Invalid token")
 
     user = db.scalar(select(models.User).where(models.User.token_id == token.id))
-    return schemas.ChatResponse(
+    return ChatResponse(
         authenticated=True,
         user_id=user.id if user else None,
         next_stage="authorization",

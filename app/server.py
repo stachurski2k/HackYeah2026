@@ -1,14 +1,14 @@
 import uvicorn
 
-from app.config import config
+from api.config import config
 
 
 def run() -> None:
     uvicorn.run(
-        "app.api:api",
-        host=config["api"]["host"],
-        port=config["api"]["port"],
-        reload=config["api"]["reload"],
+        "api:api",
+        host=config.get("app.ip", "127.0.0.1"),
+        port=config.get("app.port", 8000),
+        reload=config.get("app.reload", False),
     )
 
 

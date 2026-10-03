@@ -1,3 +1,5 @@
+"""SQLAlchemy database models."""
+
 from datetime import datetime
 from decimal import Decimal
 from enum import StrEnum

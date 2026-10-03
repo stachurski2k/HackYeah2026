@@ -4,10 +4,10 @@ from contextlib import asynccontextmanager
 from fastapi import FastAPI
 from sqlalchemy.orm import Session
 
-from app.config import config
-from app.db import Base, engine
-from app.db.seed import seed_reference_data
-from app.endpoints import chat_router, database_router
+from api.config import config
+from api.db import Base, engine
+from api.db.seed import seed_reference_data
+from api.endpoints import chat_router, database_router
 
 
 @asynccontextmanager
@@ -24,8 +24,8 @@ def register_endpoints(application: FastAPI) -> None:
 
 
 api = FastAPI(
-    title=config["api"]["title"],
-    version=config["api"]["version"],
+    title=config.get("app.title", "AI Proxy API"),
+    version=config.get("app.version", "0.1.0"),
     lifespan=lifespan,
 )
 register_endpoints(api)

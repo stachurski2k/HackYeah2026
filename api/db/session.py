@@ -5,9 +5,9 @@ from typing import Any
 from sqlalchemy import create_engine, event
 from sqlalchemy.orm import DeclarativeBase, Session, sessionmaker
 
-from app.config import config
+from api.config import config
 
-database_url: str = config["database"]["url"]
+database_url = config.get("database.url", "sqlite:///./proxy.db")
 connect_args = {"check_same_thread": False} if database_url.startswith("sqlite") else {}
 engine = create_engine(database_url, connect_args=connect_args)
 SessionLocal = sessionmaker(bind=engine, autoflush=False, expire_on_commit=False)

@@ -5,9 +5,9 @@ from sqlalchemy import delete, select
 from sqlalchemy.exc import IntegrityError
 from sqlalchemy.orm import Session
 
-from app import schemas
-from app.config import config
-from app.db import get_db, models
+from api import schemas
+from api.config import config
+from api.db import get_db, models
 
 router = APIRouter(tags=["database"])
 
@@ -51,7 +51,7 @@ async def health() -> dict[str, str]:
 
 @router.post("/tokens", response_model=schemas.TokenRead, status_code=status.HTTP_201_CREATED)
 async def generate_token(db: Session = Depends(get_db)) -> models.AccessToken:
-    token = models.AccessToken(token=secrets.token_urlsafe(config["security"]["token_bytes"]))
+    token = models.AccessToken(token=secrets.token_urlsafe(config.get("security.token_bytes", 32)))
     db.add(token)
     commit(db)
     db.refresh(token)
@@ -70,7 +70,7 @@ async def create_user(data: schemas.UserCreate, db: Session = Depends(get_db)) -
             raise HTTPException(status_code=409, detail="Token is already assigned")
     else:
         access_token = models.AccessToken(
-            token=secrets.token_urlsafe(config["security"]["token_bytes"])
+            token=secrets.token_urlsafe(config.get("security.token_bytes", 32))
         )
         db.add(access_token)
         db.flush()

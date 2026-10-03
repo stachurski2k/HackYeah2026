@@ -1,4 +1,4 @@
-"""Database models, sessions, and initialization."""
+"""Database models, sessions, and initialization for the API."""
 
 from . import models
 from .session import Base, SessionLocal, engine, get_db

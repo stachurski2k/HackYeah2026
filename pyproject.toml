@@ -20,7 +20,7 @@ requires = ["hatchling>=1.27,<2"]
 build-backend = "hatchling.build"
 
 [tool.hatch.build.targets.wheel]
-packages = ["app"]
+packages = ["app", "api"]
 
 [dependency-groups]
 dev = [
@@ -50,4 +50,4 @@ indent-style = "space"
 python_version = "3.12"
 strict = true
 plugins = ["pydantic.mypy"]
-files = ["app", "tests"]
+files = ["api", "app", "tests"]
