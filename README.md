@@ -26,3 +26,8 @@ Frankencave02 (SSH)
 IP: 172.27.74.104
 L: frankencave01
 P: !frank@en#cave$
+
+Ollam at 172.27.74.102
+    - llama3.1:8b
+    - llama3.3:latest
+    - nomic-embed-text:latest
