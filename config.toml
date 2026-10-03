@@ -1,0 +1,15 @@
+[app]
+title = "AI Proxy API"
+version = "0.1.0"
+ip = "0.0.0.0"
+port = 8000
+reload = true
+
+[database]
+url = "sqlite:///./proxy.db"
+
+[security]
+token_bytes = 32
+
+[defaults]
+groups = ["admin", "office", "user"]
